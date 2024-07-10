@@ -24,7 +24,7 @@ import com.posicionCaja.posicionCaja.model.datosRetornar;
 @RestController
 @RequestMapping("/datosUbicacion")
 public class transformarDatosUbicacion {
-    private Vector lastEndPoint = null; 
+    private Vector lastEndPoint = null;
 
     @PostMapping("/ubicacion")
     public datosRetornar ubicacion(@RequestBody datosRecibir datosR) {
@@ -68,22 +68,12 @@ public class transformarDatosUbicacion {
                         }
                     };
 
-                    String pageText = PdfTextExtractor.getTextFromPage(pdfDocument.getPage(pageNum));
+                  
+                    String pageText = PdfTextExtractor.getTextFromPage(pdfDocument.getPage(pageNum), strategy);
 
                     // Buscar el texto
                     if (pageText.toLowerCase().contains(textBuscar.toLowerCase())) {
-                        Rectangle rect = new Rectangle(0, 0);
-                        float[] coordinates = calcularCoordenadas(rect, posicionTexto, padding, altura, anchura);
-                        resultado.setPaginaFirma(currentPage);
-                        resultado.setCoordenadas(new int[] { (int) coordinates[0], (int) coordinates[1] });
-                        resultado.setTamanyo(new int[] { anchura, altura });
-
-                        System.out.println("Texto encontrado en la página " + currentPage);
-                        System.out.println("Coordenadas: " + coordinates[0] + ", " + coordinates[1]);
-                    }
-
-                    // Si encontramos el texto salir del bucle
-                    if (resultado.getPaginaFirma() != 0) {
+                       
                         break;
                     }
                 }
