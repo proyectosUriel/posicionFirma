@@ -43,7 +43,7 @@ public class transformarDatosUbicacion {
                 PdfDocument pdfDocument = new PdfDocument(pdfReader);
                 int numPages = pdfDocument.getNumberOfPages();
 
-                System.out.println("Número de páginas: " + numPages);
+                // System.out.println("Número de páginas: " + numPages);
 
                 for (int pageNum = 1; pageNum <= numPages; pageNum++) {
                     final int currentPage = pageNum;
@@ -61,8 +61,8 @@ public class transformarDatosUbicacion {
                                 resultado.setCoordenadas(new int[] { (int) coordinates[0], (int) coordinates[1] });
                                 resultado.setTamanyo(new int[] { anchura, altura });
 
-                                System.out.println("Texto encontrado en la página " + currentPage);
-                                System.out.println("Coordenadas: " + coordinates[0] + ", " + coordinates[1]);
+                                // System.out.println("Texto encontrado en la página " + currentPage);
+                                // System.out.println("Coordenadas: " + coordinates[0] + ", " + coordinates[1]);
                             }
                             super.eventOccurred(data, type);
                         }
