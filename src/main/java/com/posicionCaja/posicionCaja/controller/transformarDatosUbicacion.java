@@ -24,7 +24,7 @@ import com.posicionCaja.posicionCaja.model.datosRetornar;
 @RestController
 @RequestMapping("/datosUbicacion")
 public class transformarDatosUbicacion {
-    private Vector lastEndPoint = null; // Declaración de lastEndPoint como Vector
+    private Vector lastEndPoint = null; 
 
     @PostMapping("/ubicacion")
     public datosRetornar ubicacion(@RequestBody datosRecibir datosR) {
@@ -37,13 +37,8 @@ public class transformarDatosUbicacion {
 
         datosRetornar resultado = new datosRetornar();
         try {
-            // Decodificar el PDF desde base64
             byte[] pdfBytes = Base64.getDecoder().decode(base64Pdf);
 
-            // Verificar si el PDF se decodificó correctamente
-            System.out.println("PDF decodificado correctamente. Longitud: " + pdfBytes.length);
-
-            // Utilizar PdfReader con un ByteArrayInputStream para leer los bytes del PDF
             try (PdfReader pdfReader = new PdfReader(new ByteArrayInputStream(pdfBytes))) {
                 PdfDocument pdfDocument = new PdfDocument(pdfReader);
                 int numPages = pdfDocument.getNumberOfPages();
@@ -75,7 +70,7 @@ public class transformarDatosUbicacion {
 
                     String pageText = PdfTextExtractor.getTextFromPage(pdfDocument.getPage(pageNum));
 
-                    // Buscar directamente en el texto de la página actual
+                    // Buscar el texto
                     if (pageText.toLowerCase().contains(textBuscar.toLowerCase())) {
                         Rectangle rect = new Rectangle(0, 0);
                         float[] coordinates = calcularCoordenadas(rect, posicionTexto, padding, altura, anchura);
@@ -87,7 +82,7 @@ public class transformarDatosUbicacion {
                         System.out.println("Coordenadas: " + coordinates[0] + ", " + coordinates[1]);
                     }
 
-                    // Si ya encontramos el texto, rompemos el bucle
+                    // Si encontramos el texto salir del bucle
                     if (resultado.getPaginaFirma() != 0) {
                         break;
                     }
